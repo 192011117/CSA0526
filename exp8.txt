@@ -1,0 +1,71 @@
+
+mysql> select char_name,business from GTA where speciality in (select speciality from GTA where vehicles="santro");
++-----------+--------------+
+| char_name | business     |
++-----------+--------------+
+| Ragnar    | cash factory |
++-----------+--------------+
+1 row in set (0.02 sec)
+
+mysql> select * from mission;
+Empty set (0.00 sec)
+
+mysql> desc mission;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| weapons       | varchar(20) | YES  |     | NULL    |       |
+| outfit        | varchar(20) | YES  |     | NULL    |       |
+| location      | varchar(20) | YES  |     | NULL    |       |
+| speciality    | varchar(20) | YES  | MUL | NULL    |       |
+| money_splitup | int(20)     | YES  |     | NULL    |       |
+| dlc           | int(20)     | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> insert into GTA(speciality)
+    -> select(speciality)
+    -> from mission;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc GTA;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| char_name  | varchar(20) | YES  |     | NULL    |       |
+| weapons    | varchar(20) | YES  |     | NULL    |       |
+| vehicles   | varchar(20) | YES  |     | NULL    |       |
+| business   | varchar(20) | YES  |     | NULL    |       |
+| inventory  | varchar(20) | YES  |     | NULL    |       |
+| speciality | varchar(20) | NO   | PRI |         |       |
+| char_code  | varchar(20) | YES  | UNI | NULL    |       |
+| dlc        | int(20)     | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+8 rows in set (0.05 sec)
+
+mysql> select * from GTA;
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+| char_name | weapons  | vehicles     | business     | inventory | speciality  | char_code | dlc  |
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+| pheneas   | trumphet | austonmartin | cash_factory | axe       | photography | 734589    | 2019 |
+| Ragnar    | auto_smg | santro       | cash factory | tools     | skyfall     | codemeta  | NULL |
+| Michael   | SMG      | GhostTourism | Cocaine      | Cargo     | Tracker     | NULL      | NULL |
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+3 rows in set (0.00 sec)
+
+mysql> insert into mission(speciality)
+    -> select speciality
+    -> from GTA where dlc=2019;
+Query OK, 1 row affected (0.04 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> select * from mission;
++---------+--------+----------+-------------+---------------+------+
+| weapons | outfit | location | speciality  | money_splitup | dlc  |
++---------+--------+----------+-------------+---------------+------+
+| NULL    | NULL   | NULL     | photography |          NULL | NULL |
++---------+--------+----------+-------------+---------------+------+
+1 row in set (0.02 sec)
+
+mysql>
