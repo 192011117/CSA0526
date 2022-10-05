@@ -1,0 +1,33 @@
+
+
+mysql> select *from GTA;
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+| char_name | weapons  | vehicles     | business     | inventory | speciality  | char_code | dlc  |
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+| pheneas   | trumphet | austonmartin | cash_factory | axe       | photography | 734589    | 2019 |
+| Ragnar    | auto_smg | santro       | cash factory | tools     | skyfall     | codemeta  | NULL |
+| Michael   | SMG      | GhostTourism | Cocaine      | Cargo     | Tracker     | NULL      | NULL |
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+3 rows in set (0.00 sec)
+
+mysql> select * from GTA GROUP BY vehicles;
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+| char_name | weapons  | vehicles     | business     | inventory | speciality  | char_code | dlc  |
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+| pheneas   | trumphet | austonmartin | cash_factory | axe       | photography | 734589    | 2019 |
+| Michael   | SMG      | GhostTourism | Cocaine      | Cargo     | Tracker     | NULL      | NULL |
+| Ragnar    | auto_smg | santro       | cash factory | tools     | skyfall     | codemeta  | NULL |
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+3 rows in set (0.00 sec)
+
+mysql> select * from GTA ORDER BY speciality DESC;
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+| char_name | weapons  | vehicles     | business     | inventory | speciality  | char_code | dlc  |
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+| Michael   | SMG      | GhostTourism | Cocaine      | Cargo     | Tracker     | NULL      | NULL |
+| Ragnar    | auto_smg | santro       | cash factory | tools     | skyfall     | codemeta  | NULL |
+| pheneas   | trumphet | austonmartin | cash_factory | axe       | photography | 734589    | 2019 |
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+3 rows in set (0.00 sec)
+
+mysql>
