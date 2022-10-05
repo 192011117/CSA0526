@@ -1,0 +1,106 @@
+
+
+mysql> desc GTA;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| char_name  | varchar(20) | YES  |     | NULL    |       |
+| weapons    | varchar(20) | YES  |     | NULL    |       |
+| vehicles   | varchar(20) | YES  |     | NULL    |       |
+| business   | varchar(20) | YES  |     | NULL    |       |
+| inventory  | varchar(20) | YES  |     | NULL    |       |
+| speciality | varchar(20) | NO   | PRI |         |       |
+| char_code  | varchar(20) | YES  | UNI | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+
+mysql> select weapons,COUNT(*) from GTA GROUP BY business;
++----------+----------+
+| weapons  | COUNT(*) |
++----------+----------+
+| auto_smg |        1 |
+| SMG      |        1 |
++----------+----------+
+2 rows in set (0.02 sec)
+
+mysql> select weapons,COUNT(*) from GTA GROUP BY weapons;
++----------+----------+
+| weapons  | COUNT(*) |
++----------+----------+
+| auto_smg |        1 |
+| SMG      |        1 |
++----------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select * from GTA;
++-----------+----------+--------------+--------------+-----------+------------+-----------+
+| char_name | weapons  | vehicles     | business     | inventory | speciality | char_code |
++-----------+----------+--------------+--------------+-----------+------------+-----------+
+| Ragnar    | auto_smg | santro       | cash factory | tools     | skyfall    | codemeta  |
+| Michael   | SMG      | GhostTourism | Cocaine      | Cargo     | Tracker    | NULL      |
++-----------+----------+--------------+--------------+-----------+------------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> select business from GTA where inventory between "tools" and "cargo";
+Empty set (0.00 sec)
+
+mysql> select * from GTA;
++-----------+----------+--------------+--------------+-----------+------------+-----------+
+| char_name | weapons  | vehicles     | business     | inventory | speciality | char_code |
++-----------+----------+--------------+--------------+-----------+------------+-----------+
+| Ragnar    | auto_smg | santro       | cash factory | tools     | skyfall    | codemeta  |
+| Michael   | SMG      | GhostTourism | Cocaine      | Cargo     | Tracker    | NULL      |
++-----------+----------+--------------+--------------+-----------+------------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> alter table GTA add column dlc int(20);
+Query OK, 2 rows affected (0.02 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> desc GTA;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| char_name  | varchar(20) | YES  |     | NULL    |       |
+| weapons    | varchar(20) | YES  |     | NULL    |       |
+| vehicles   | varchar(20) | YES  |     | NULL    |       |
+| business   | varchar(20) | YES  |     | NULL    |       |
+| inventory  | varchar(20) | YES  |     | NULL    |       |
+| speciality | varchar(20) | NO   | PRI |         |       |
+| char_code  | varchar(20) | YES  | UNI | NULL    |       |
+| dlc        | int(20)     | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> insert into GTA values("pheneas","trumphet","austonmartin","cash_factory","axe","photography","734589",2019);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from GTA;
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+| char_name | weapons  | vehicles     | business     | inventory | speciality  | char_code | dlc  |
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+| pheneas   | trumphet | austonmartin | cash_factory | axe       | photography | 734589    | 2019 |
+| Ragnar    | auto_smg | santro       | cash factory | tools     | skyfall     | codemeta  | NULL |
+| Michael   | SMG      | GhostTourism | Cocaine      | Cargo     | Tracker     | NULL      | NULL |
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+3 rows in set (0.00 sec)
+
+mysql> select dlc from GTA where char_name not between 'pheneas' and 'Michael';
++------+
+| dlc  |
++------+
+| 2019 |
+| NULL |
+| NULL |
++------+
+3 rows in set (0.00 sec)
+
+mysql> select * from GTA where inventory IN('axe');
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+| char_name | weapons  | vehicles     | business     | inventory | speciality  | char_code | dlc  |
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+| pheneas   | trumphet | austonmartin | cash_factory | axe       | photography | 734589    | 2019 |
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+1 row in set (0.00 sec)
+
+mysql>

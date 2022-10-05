@@ -1,0 +1,242 @@
+Enter password: **
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 4
+Server version: 5.5.62 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> select * from GTA;
+ERROR 1046 (3D000): No database selected
+mysql> use game;
+Database changed
+mysql> select * from GTA;
++-----------+----------+--------------+--------------+-----------+------------+-----------+
+| char_name | weapons  | vehicles     | business     | inventory | speciality | char_code |
++-----------+----------+--------------+--------------+-----------+------------+-----------+
+| Ragnar    | auto_smg | santro       | cash factory | tools     | skyfall    | codemeta  |
+| Michael   | SMG      | GhostTourism | Cocaine      | Cargo     | Tracker    | NULL      |
++-----------+----------+--------------+--------------+-----------+------------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> select * from GTA where inventory="tools";
++-----------+----------+----------+--------------+-----------+------------+-----------+
+| char_name | weapons  | vehicles | business     | inventory | speciality | char_code |
++-----------+----------+----------+--------------+-----------+------------+-----------+
+| Ragnar    | auto_smg | santro   | cash factory | tools     | skyfall    | codemeta  |
++-----------+----------+----------+--------------+-----------+------------+-----------+
+1 row in set (0.00 sec)
+
+mysql> desc GTA;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| char_name  | varchar(20) | YES  |     | NULL    |       |
+| weapons    | varchar(20) | YES  |     | NULL    |       |
+| vehicles   | varchar(20) | YES  |     | NULL    |       |
+| business   | varchar(20) | YES  |     | NULL    |       |
+| inventory  | varchar(20) | YES  |     | NULL    |       |
+| speciality | varchar(20) | NO   | PRI |         |       |
+| char_code  | varchar(20) | YES  | UNI | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> desc mission;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| weapons       | varchar(20) | YES  |     | NULL    |       |
+| outfit        | varchar(20) | YES  |     | NULL    |       |
+| location      | varchar(20) | YES  |     | NULL    |       |
+| speciality    | varchar(20) | YES  | MUL | NULL    |       |
+| money_splitup | int(20)     | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+5 rows in set (0.02 sec)
+
+mysql> alter table mission add column dlc;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> alter table mission add column dlc int(20);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc mission;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| weapons       | varchar(20) | YES  |     | NULL    |       |
+| outfit        | varchar(20) | YES  |     | NULL    |       |
+| location      | varchar(20) | YES  |     | NULL    |       |
+| speciality    | varchar(20) | YES  | MUL | NULL    |       |
+| money_splitup | int(20)     | YES  |     | NULL    |       |
+| dlc           | int(20)     | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> insert into mission values("piston","tracks","vadapalani","Hunter",30,2019);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`game`.`mission`, CONSTRAINT `mission_ibfk_1` FOREIGN KEY (`speciality`) REFERENCES `gta` (`speciality`))
+mysql> desc GTA;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| char_name  | varchar(20) | YES  |     | NULL    |       |
+| weapons    | varchar(20) | YES  |     | NULL    |       |
+| vehicles   | varchar(20) | YES  |     | NULL    |       |
+| business   | varchar(20) | YES  |     | NULL    |       |
+| inventory  | varchar(20) | YES  |     | NULL    |       |
+| speciality | varchar(20) | NO   | PRI |         |       |
+| char_code  | varchar(20) | YES  | UNI | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.01 sec)
+
+mysql> select weapons,COUNT(*) from GTA GROUP BY business;
++----------+----------+
+| weapons  | COUNT(*) |
++----------+----------+
+| auto_smg |        1 |
+| SMG      |        1 |
++----------+----------+
+2 rows in set (0.02 sec)
+
+mysql> select weapons,COUNT(*) from GTA GROUP BY weapons;
++----------+----------+
+| weapons  | COUNT(*) |
++----------+----------+
+| auto_smg |        1 |
+| SMG      |        1 |
++----------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select * from GTA;
++-----------+----------+--------------+--------------+-----------+------------+-----------+
+| char_name | weapons  | vehicles     | business     | inventory | speciality | char_code |
++-----------+----------+--------------+--------------+-----------+------------+-----------+
+| Ragnar    | auto_smg | santro       | cash factory | tools     | skyfall    | codemeta  |
+| Michael   | SMG      | GhostTourism | Cocaine      | Cargo     | Tracker    | NULL      |
++-----------+----------+--------------+--------------+-----------+------------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> select business from GTA where inventory between "tools" and "cargo";
+Empty set (0.00 sec)
+
+mysql> select * from GTA;
++-----------+----------+--------------+--------------+-----------+------------+-----------+
+| char_name | weapons  | vehicles     | business     | inventory | speciality | char_code |
++-----------+----------+--------------+--------------+-----------+------------+-----------+
+| Ragnar    | auto_smg | santro       | cash factory | tools     | skyfall    | codemeta  |
+| Michael   | SMG      | GhostTourism | Cocaine      | Cargo     | Tracker    | NULL      |
++-----------+----------+--------------+--------------+-----------+------------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> alter table GTA add column dlc int(20);
+Query OK, 2 rows affected (0.02 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> desc GTA;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| char_name  | varchar(20) | YES  |     | NULL    |       |
+| weapons    | varchar(20) | YES  |     | NULL    |       |
+| vehicles   | varchar(20) | YES  |     | NULL    |       |
+| business   | varchar(20) | YES  |     | NULL    |       |
+| inventory  | varchar(20) | YES  |     | NULL    |       |
+| speciality | varchar(20) | NO   | PRI |         |       |
+| char_code  | varchar(20) | YES  | UNI | NULL    |       |
+| dlc        | int(20)     | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)
+
+mysql> insert into GTA values("pheneas","trumphet","austonmartin","cash_factory","axe","photography","734589",2019);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select business from GTA where dlc between 2019;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select business from GTA where weapons between "axe" and dlc between 2019;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select * from GTA;
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+| char_name | weapons  | vehicles     | business     | inventory | speciality  | char_code | dlc  |
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+| pheneas   | trumphet | austonmartin | cash_factory | axe       | photography | 734589    | 2019 |
+| Ragnar    | auto_smg | santro       | cash factory | tools     | skyfall     | codemeta  | NULL |
+| Michael   | SMG      | GhostTourism | Cocaine      | Cargo     | Tracker     | NULL      | NULL |
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+3 rows in set (0.00 sec)
+
+mysql> select business from GTA where weapons between "trumphet" and "SMG";
+Empty set (0.00 sec)
+
+mysql> select dlc from GTA where weapons between "trumphet" and "SMG";
+Empty set (0.00 sec)
+
+mysql> select dlc from GTA where char_name between 'pheneas' AND 'Michael';
+Empty set (0.00 sec)
+
+mysql> select dlc from GTA where char_name between 'pheneas' and 'Michael';
+Empty set (0.00 sec)
+
+mysql> select dlc from GTA where char_name not between 'pheneas' and 'Michael';
++------+
+| dlc  |
++------+
+| 2019 |
+| NULL |
+| NULL |
++------+
+3 rows in set (0.00 sec)
+
+mysql> select * from GTA where weapons In(axe,cargo);
+ERROR 1054 (42S22): Unknown column 'axe' in 'where clause'
+mysql> select * from GTA where weapons In("axe","cargo");
+Empty set (0.01 sec)
+
+mysql> select dlc from GTA where weapons In("axe","cargo");
+Empty set (0.00 sec)
+
+mysql> select * from GTA where weapons IN('axe');
+Empty set (0.00 sec)
+
+mysql> select * from GTA where inventory IN('axe');
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+| char_name | weapons  | vehicles     | business     | inventory | speciality  | char_code | dlc  |
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+| pheneas   | trumphet | austonmartin | cash_factory | axe       | photography | 734589    | 2019 |
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+1 row in set (0.00 sec)
+
+mysql> select *from GTA;
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+| char_name | weapons  | vehicles     | business     | inventory | speciality  | char_code | dlc  |
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+| pheneas   | trumphet | austonmartin | cash_factory | axe       | photography | 734589    | 2019 |
+| Ragnar    | auto_smg | santro       | cash factory | tools     | skyfall     | codemeta  | NULL |
+| Michael   | SMG      | GhostTourism | Cocaine      | Cargo     | Tracker     | NULL      | NULL |
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+3 rows in set (0.00 sec)
+
+mysql> select * from GTA GROUP BY vehicles;
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+| char_name | weapons  | vehicles     | business     | inventory | speciality  | char_code | dlc  |
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+| pheneas   | trumphet | austonmartin | cash_factory | axe       | photography | 734589    | 2019 |
+| Michael   | SMG      | GhostTourism | Cocaine      | Cargo     | Tracker     | NULL      | NULL |
+| Ragnar    | auto_smg | santro       | cash factory | tools     | skyfall     | codemeta  | NULL |
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+3 rows in set (0.00 sec)
+
+mysql> select * from GTA ORDER BY speciality DESC;
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+| char_name | weapons  | vehicles     | business     | inventory | speciality  | char_code | dlc  |
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+| Michael   | SMG      | GhostTourism | Cocaine      | Cargo     | Tracker     | NULL      | NULL |
+| Ragnar    | auto_smg | santro       | cash factory | tools     | skyfall     | codemeta  | NULL |
+| pheneas   | trumphet | austonmartin | cash_factory | axe       | photography | 734589    | 2019 |
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+3 rows in set (0.00 sec)
+
+mysql>
