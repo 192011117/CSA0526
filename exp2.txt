@@ -1,0 +1,197 @@
+Enter password: **
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 3
+Server version: 5.5.62 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database game;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use game;
+Database changed
+mysql> create table GTA
+    -> (char_name varchar(20),
+    -> weapons varchar(20),
+    -> vehicles varchar(20),
+    -> business varchar(20),
+    -> inventory varchar(20));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select * from GTA;
+Empty set (0.00 sec)
+
+mysql> desc GTA;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| char_name | varchar(20) | YES  |     | NULL    |       |
+| weapons   | varchar(20) | YES  |     | NULL    |       |
+| vehicles  | varchar(20) | YES  |     | NULL    |       |
+| business  | varchar(20) | YES  |     | NULL    |       |
+| inventory | varchar(20) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+5 rows in set (0.04 sec)
+
+mysql> alter table GTA
+    -> add column speciality varchar(20);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc GTA;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| char_name  | varchar(20) | YES  |     | NULL    |       |
+| weapons    | varchar(20) | YES  |     | NULL    |       |
+| vehicles   | varchar(20) | YES  |     | NULL    |       |
+| business   | varchar(20) | YES  |     | NULL    |       |
+| inventory  | varchar(20) | YES  |     | NULL    |       |
+| speciality | varchar(20) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+mysql> insert into GTA values('Michael','SMG','Cocaine','Cargo','Tracker');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into GTA values('Michael','SMG','GhostTourism','Cocaine','Cargo','Tracker');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> desc GTA;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| char_name  | varchar(20) | YES  |     | NULL    |       |
+| weapons    | varchar(20) | YES  |     | NULL    |       |
+| vehicles   | varchar(20) | YES  |     | NULL    |       |
+| business   | varchar(20) | YES  |     | NULL    |       |
+| inventory  | varchar(20) | YES  |     | NULL    |       |
+| speciality | varchar(20) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.04 sec)
+
+mysql> select * from GTA;
++-----------+---------+--------------+----------+-----------+------------+
+| char_name | weapons | vehicles     | business | inventory | speciality |
++-----------+---------+--------------+----------+-----------+------------+
+| Michael   | SMG     | GhostTourism | Cocaine  | Cargo     | Tracker    |
++-----------+---------+--------------+----------+-----------+------------+
+1 row in set (0.00 sec)
+
+mysql> create table summa
+    -> (waste1 varchar(20),
+    -> waste2 varchar(20));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc summa;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| waste1 | varchar(20) | YES  |     | NULL    |       |
+| waste2 | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.04 sec)
+
+mysql> drop table summa;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> desc summa;
+ERROR 1146 (42S02): Table 'game.summa' doesn't exist
+mysql> alter table GTA add primary key(speciality);
+Query OK, 1 row affected (0.06 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> desc GTA
+    -> ;\
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| char_name  | varchar(20) | YES  |     | NULL    |       |
+| weapons    | varchar(20) | YES  |     | NULL    |       |
+| vehicles   | varchar(20) | YES  |     | NULL    |       |
+| business   | varchar(20) | YES  |     | NULL    |       |
+| inventory  | varchar(20) | YES  |     | NULL    |       |
+| speciality | varchar(20) | NO   | PRI |         |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.04 sec)
+
+mysql> create table mission
+    -> (weapons varchar(20),
+    -> outfit varchar(20),
+    -> money_splitup varchar(20),
+    -> location varchar(20));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc mission;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| weapons       | varchar(20) | YES  |     | NULL    |       |
+| outfit        | varchar(20) | YES  |     | NULL    |       |
+| money_splitup | varchar(20) | YES  |     | NULL    |       |
+| location      | varchar(20) | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+4 rows in set (0.04 sec)
+
+mysql> alter table mission add speciality varchar(20);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc mission;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| weapons       | varchar(20) | YES  |     | NULL    |       |
+| outfit        | varchar(20) | YES  |     | NULL    |       |
+| money_splitup | varchar(20) | YES  |     | NULL    |       |
+| location      | varchar(20) | YES  |     | NULL    |       |
+| speciality    | varchar(20) | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+5 rows in set (0.04 sec)
+
+mysql> alter table mission add FOREIGN KEY (speciality) REFERENCES GTA(speciality);
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc mission;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| weapons       | varchar(20) | YES  |     | NULL    |       |
+| outfit        | varchar(20) | YES  |     | NULL    |       |
+| money_splitup | varchar(20) | YES  |     | NULL    |       |
+| location      | varchar(20) | YES  |     | NULL    |       |
+| speciality    | varchar(20) | YES  | MUL | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+5 rows in set (0.04 sec)
+
+mysql> desc GTA;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| char_name  | varchar(20) | YES  |     | NULL    |       |
+| weapons    | varchar(20) | YES  |     | NULL    |       |
+| vehicles   | varchar(20) | YES  |     | NULL    |       |
+| business   | varchar(20) | YES  |     | NULL    |       |
+| inventory  | varchar(20) | YES  |     | NULL    |       |
+| speciality | varchar(20) | NO   | PRI |         |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> alter table GTA add char_code varchar(20);
+Query OK, 1 row affected (0.05 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> alter table GTA add unique(char_code);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table GTA add check (money_splitup>=20);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
