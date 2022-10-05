@@ -1,0 +1,42 @@
+
+mysql> insert into GTA values("temp","temp","temp","temp","temp","temp","temp");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from GTA;
++-----------+---------+--------------+--------------+-----------+------------+-----------+
+| char_name | weapons | vehicles     | business     | inventory | speciality | char_code |
++-----------+---------+--------------+--------------+-----------+------------+-----------+
+| Ragnar    | rpg     | santro       | cash factory | tools     | skyfall    | codemeta  |
+| temp      | temp    | temp         | temp         | temp      | temp       | temp      |
+| Michael   | SMG     | GhostTourism | Cocaine      | Cargo     | Tracker    | NULL      |
++-----------+---------+--------------+--------------+-----------+------------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> delete from GTA WHERE char_name="temp";
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from GTA;
++-----------+---------+--------------+--------------+-----------+------------+-----------+
+| char_name | weapons | vehicles     | business     | inventory | speciality | char_code |
++-----------+---------+--------------+--------------+-----------+------------+-----------+
+| Ragnar    | rpg     | santro       | cash factory | tools     | skyfall    | codemeta  |
+| Michael   | SMG     | GhostTourism | Cocaine      | Cargo     | Tracker    | NULL      |
++-----------+---------+--------------+--------------+-----------+------------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> update GTA
+    -> set weapons="auto_smg"
+    -> where weapons="rpg";
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from GTA;
++-----------+----------+--------------+--------------+-----------+------------+-----------+
+| char_name | weapons  | vehicles     | business     | inventory | speciality | char_code |
++-----------+----------+--------------+--------------+-----------+------------+-----------+
+| Ragnar    | auto_smg | santro       | cash factory | tools     | skyfall    | codemeta  |
+| Michael   | SMG      | GhostTourism | Cocaine      | Cargo     | Tracker    | NULL      |
++-----------+----------+--------------+--------------+-----------+------------+-----------+
+2 rows in set (0.00 sec)
+
+mysql>
