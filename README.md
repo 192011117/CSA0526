@@ -10,7 +10,7 @@
 ## Experiment 5
 [SQL Queries](https://github.com/192011117/CSA0526/blob/main/exp5.txt)
 ## Experiment 6
-[SQL Queries]()
+[SQL Queries](https://github.com/192011117/CSA0526/blob/main/exp6.txt)
 ## Experiment 7
 [SQL Queries]()
 ## Experiment 8
