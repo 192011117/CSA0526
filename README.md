@@ -6,7 +6,7 @@
 ## Experiment 3
 [SQL Queries](https://github.com/192011117/CSA0526/blob/main/exp3_dmlcommand.txt)
 ## Experiment 4
-[SQL Queries]()
+[SQL Queries](https://github.com/192011117/CSA0526/blob/main/exp4.txt)
 ## Experiment 5
 [SQL Queries]()
 ## Experiment 6
