@@ -18,7 +18,7 @@
 ## Experiment 9
 [SQL Queries](https://github.com/192011117/CSA0526/blob/main/exp9join.txt)
 ## Experiment 10
-[SQL Queries]()
+[SQL Queries](https://github.com/192011117/CSA0526/blob/main/exp10.txt)
 ## Experiment 11
 [SQL Queries]()
 ## Experiment 12
