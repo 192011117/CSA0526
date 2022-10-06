@@ -1,0 +1,40 @@
+
+mysql> create user Ragnar;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> grant all on GTA to Ragnar;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for Ragnar;
++------------------------------------------------------+
+| Grants for Ragnar@%                                  |
++------------------------------------------------------+
+| GRANT USAGE ON *.* TO 'Ragnar'@'%'                   |
+| GRANT ALL PRIVILEGES ON `game`.`gta` TO 'Ragnar'@'%' |
++------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> revoke all on GTA from Ragnar;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for Ragnar;
++------------------------------------+
+| Grants for Ragnar@%                |
++------------------------------------+
+| GRANT USAGE ON *.* TO 'Ragnar'@'%' |
++------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> grant select, update on GTA to Ragnar;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> show grants for Ragnar;
++------------------------------------------------------+
+| Grants for Ragnar@%                                  |
++------------------------------------------------------+
+| GRANT USAGE ON *.* TO 'Ragnar'@'%'                   |
+| GRANT SELECT, UPDATE ON `game`.`gta` TO 'Ragnar'@'%' |
++------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql>

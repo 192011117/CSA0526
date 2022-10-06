@@ -1,0 +1,84 @@
+Enter password: **
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 5
+Server version: 5.5.62 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use game
+Database changed
+mysql> select * from GTA;
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+| char_name | weapons  | vehicles     | business     | inventory | speciality  | char_code | dlc  |
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+| maha      | shotgun  | buggy        | forensic     | auto      | hacker      | codebeta  | 2017 |
+| pheneas   | trumphet | austonmartin | cash_factory | axe       | photography | 734589    | 2019 |
+| Ragnar    | auto_smg | santro       | cash factory | tools     | skyfall     | codemeta  | NULL |
+| Michael   | SMG      | GhostTourism | Cocaine      | Cargo     | Tracker     | NULL      | NULL |
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+4 rows in set (0.00 sec)
+
+mysql> start transaction;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> savepoint temp;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> update GTA set inventory="cargo" where char_name="Michael";
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> rollback to temp;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select * from GTA;
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+| char_name | weapons  | vehicles     | business     | inventory | speciality  | char_code | dlc  |
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+| maha      | shotgun  | buggy        | forensic     | auto      | hacker      | codebeta  | 2017 |
+| pheneas   | trumphet | austonmartin | cash_factory | axe       | photography | 734589    | 2019 |
+| Ragnar    | auto_smg | santro       | cash factory | tools     | skyfall     | codemeta  | NULL |
+| Michael   | SMG      | GhostTourism | Cocaine      | Cargo     | Tracker     | NULL      | NULL |
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+4 rows in set (0.00 sec)
+
+mysql> savepoint temp1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> delete from GTA where char_name="Ragnar";
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint temp2;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select *from GTA;
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+| char_name | weapons  | vehicles     | business     | inventory | speciality  | char_code | dlc  |
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+| maha      | shotgun  | buggy        | forensic     | auto      | hacker      | codebeta  | 2017 |
+| pheneas   | trumphet | austonmartin | cash_factory | axe       | photography | 734589    | 2019 |
+| Michael   | SMG      | GhostTourism | Cocaine      | Cargo     | Tracker     | NULL      | NULL |
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+3 rows in set (0.00 sec)
+
+mysql> rollback to temp1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from GTA;
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+| char_name | weapons  | vehicles     | business     | inventory | speciality  | char_code | dlc  |
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+| maha      | shotgun  | buggy        | forensic     | auto      | hacker      | codebeta  | 2017 |
+| pheneas   | trumphet | austonmartin | cash_factory | axe       | photography | 734589    | 2019 |
+| Ragnar    | auto_smg | santro       | cash factory | tools     | skyfall     | codemeta  | NULL |
+| Michael   | SMG      | GhostTourism | Cocaine      | Cargo     | Tracker     | NULL      | NULL |
++-----------+----------+--------------+--------------+-----------+-------------+-----------+------+
+4 rows in set (0.00 sec)
+
+mysql>

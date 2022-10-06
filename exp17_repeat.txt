@@ -1,0 +1,14 @@
+
+
+mysql> select repeat(inventory,2) from GTA;
+    -> ;
+    -> //
++---------------------+
+| repeat(inventory,2) |
++---------------------+
+| autoauto            |
+| axeaxe              |
+| toolstools          |
+| CargoCargo          |
++---------------------+
+4 rows in set (0.04 sec)

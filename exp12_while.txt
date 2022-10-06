@@ -1,0 +1,17 @@
+
+mysql> use game
+Database changed
+mysql> DELIMITER //
+mysql> CREATE PROCEDURE while_loop()
+    -> BEGIN
+    -> DECLARE num INT default 1;
+    -> declare res varchar(50) default '';
+    -> while num<76000 do
+    -> set res = concat(res,num,',');
+    -> set num=num*5;
+    -> end while;
+    -> select res;
+    -> end //
+Query OK, 0 rows affected (0.02 sec)
+
+
