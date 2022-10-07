@@ -1,0 +1,92 @@
+Enter password: **
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 5.5.62 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create table hr_db
+    -> (emp_name varchar(20),
+    -> emp_code varchar(20),
+    -> emp_salary int(20),
+    -> year int(20));
+ERROR 1046 (3D000): No database selected
+mysql> use game;
+Database changed
+mysql> create table hr_db
+    -> (emp_name varchar(20),
+    -> emp_code varchar(20),
+    -> emp_salary int(20),
+    -> year int(20));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> insert into hr_db values ("ragnar","codehexa",30000,2017);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into hr_db values ("freya","codemeta",34000,2017);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into hr_db values ("fredis","codeviking",39000,2014);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> desc hr_db;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| emp_name   | varchar(20) | YES  |     | NULL    |       |
+| emp_code   | varchar(20) | YES  |     | NULL    |       |
+| emp_salary | int(20)     | YES  |     | NULL    |       |
+| year       | int(20)     | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.04 sec)
+
+mysql> select * from hr_db;
++----------+------------+------------+------+
+| emp_name | emp_code   | emp_salary | year |
++----------+------------+------------+------+
+| ragnar   | codehexa   |      30000 | 2017 |
+| freya    | codemeta   |      34000 | 2017 |
+| fredis   | codeviking |      39000 | 2014 |
++----------+------------+------------+------+
+3 rows in set (0.00 sec)
+
+mysql> update hr_db set emp_salary=50000 where emp_salary=39000;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from hr_db;
++----------+------------+------------+------+
+| emp_name | emp_code   | emp_salary | year |
++----------+------------+------------+------+
+| ragnar   | codehexa   |      30000 | 2017 |
+| freya    | codemeta   |      34000 | 2017 |
+| fredis   | codeviking |      50000 | 2014 |
++----------+------------+------------+------+
+3 rows in set (0.00 sec)
+
+mysql> select sum(emp_salary), min(emp_salary),max(emp_salary) from hr_db;
++-----------------+-----------------+-----------------+
+| sum(emp_salary) | min(emp_salary) | max(emp_salary) |
++-----------------+-----------------+-----------------+
+|          114000 |           30000 |           50000 |
++-----------------+-----------------+-----------------+
+1 row in set (0.04 sec)
+
+mysql> select emp_code,year from hr_db where emp_name=
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select emp_code,year from hr_db where emp_name="ragnar";
++----------+------+
+| emp_code | year |
++----------+------+
+| codehexa | 2017 |
++----------+------+
+1 row in set (0.03 sec)
+
+mysql>
